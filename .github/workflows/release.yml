@@ -1,0 +1,22 @@
+name: sankha
+on:
+  push:
+jobs:
+  lint:
+   runs-on: ubuntu-latest
+   steps:
+      - name: Compute version
+        id: ver
+        run: echo "version=1.4.2"
+   outputs:
+      version: ${{ steps.ver.outputs.version }}
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        run: echo "tests passed"
+  package:
+    runs-on: ubuntu-latest
+    needs: [lint, unit-tests]
+    steps:
+      - run: echo "Deploying"
